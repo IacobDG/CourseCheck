@@ -1,0 +1,116 @@
+/* CSS for centering the content */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* CSS for the logout content */
+  .logout-content {
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+  }
+  
+  /* CSS for the header */
+  .header {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+  }
+  
+  /* CSS for the check icon */
+  .fas.fa-check {
+    color: #3498db;
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  /* CSS for the line */
+  .line {
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* CSS for the confirm button */
+  .confirm-btn {
+    background-color: #3498db;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .confirm-btn:hover {
+    background-color: #2980b9;
+  }
+
+  /* center the logout content */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* style the logout content container */
+  .logout-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    border-radius: 10px;
+  }
+  
+  /* style the header of the logout content */
+  .header {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* style the check icon */
+  .fas.fa-check {
+    font-size: 60px;
+    color: #03a9f4;
+    margin-bottom: 20px;
+  }
+  
+  /* style the line */
+  .line {
+    width: 100%;
+    height: 2px;
+    background-color: #d9d9d9;
+    margin-bottom: 20px;
+  }
+  
+  /* style the confirm button */
+  .confirm-btn {
+    background-color: #03a9f4;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* style the confirm button hover effect */
+  .confirm-btn:hover {
+    transform: scale(1.1);
+  }
+
+  
+  
+  

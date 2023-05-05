@@ -1,0 +1,485 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+body,
+input{
+    font-family:Montserrat, sans-serif; 
+}
+
+  /* Style for the dropdown list */
+  .select-y,
+  .select-s {
+    color: #FF5300;
+  }
+  
+  select {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    height: 2.5em;
+    line-height: 2.5em;
+    padding: 0.5em 2em 0.5em 1em;
+    width: 15em;
+  }
+  
+  option {
+    font-weight: 600;
+  }
+  
+  /* Add some padding to the dropdown container */
+  .dropdown-select,
+  .dropdown-semesters {
+    padding: 1em;
+  }
+  
+  /* Style for the label */
+  .label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
+  /* Add a hover effect to the options */
+  select:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Add a focus style to the options */
+  select:focus {
+    border-color: #FF5300;
+    outline: none;
+  }
+  
+  /* Add a transition to the select element */
+  select {
+    transition: all 0.2s ease-in-out;
+  }
+  
+/* Increase the width of the dropdown list */
+.dropdown-content {
+  width: 200px;
+}
+
+/* Add a border to the dropdown list */
+.dropdown-content {
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+  background-color: #fff;
+}
+
+/* Change the background color and text color of the dropdown list items when hovering over them */
+.dropdown-content option:hover {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+
+/* Add a box shadow to the dropdown list when it is open */
+.dropdown:hover .dropdown-content {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Add a transition effect when the dropdown list is opened or closed */
+.dropdown-content {
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Style the dropdown list items */
+.dropdown-content option {
+    padding: 0.5em;
+  }
+
+
+.container{
+    position:relative;
+    width:100%;
+    min-height: 100vh;
+    background-color: #fff;
+    overflow:hidden;
+}
+
+.container:before{
+    content:'';
+    position:absolute;
+    width:2000px;
+    height:2000px;
+    border-radius:50%;
+    background:linear-gradient(-45deg, #2c34c7,#2c34c7);
+    top:-10%;
+    right: 48%;
+    transform:translateY(-50%);
+    z-index: 6;
+    transition: 1.8s ease-in-out;
+}
+
+.forms-container{
+    position: 100%;
+    width:100%;
+    height:100%;
+    top:0;
+    left: 0;
+}
+
+form{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 5rem;
+    overflow: hidden;
+    grid-column:1/ 2;
+    grid-row:1/ 2;
+    transition: 0.2s 0.7s ease-in-out;
+}
+
+.title{
+    font-size: 2.2rem;
+    color:#444;
+    margin-bottom:10px;
+}
+
+.input-field{
+    max-width:380px;
+    width:100%;
+    height:55px;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    border-radius: 55px;
+    display:grid;
+    grid-template-columns: 15% 85%;
+    padding:0;
+}
+
+.input-field i{
+    text-align:center;
+    line-height: 55px;
+    color:#FF5300;
+    font-size: 1.1rem; 
+}
+
+.input-field input{
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #FF5300; 
+}
+
+.input-field input::placeholder{
+    color:#aaa;
+}
+
+.btn{
+    width: 150px;
+    height:49px;
+    border: none;
+    outline:none;
+    border-radius:49px;
+    color:#fff;
+    cursor:pointer;
+    background-color: #FF5300;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px 0;
+    transition: .5s;
+}
+
+.btn:hover{
+    background-color:#25367F;
+}
+
+.login-icon{
+    pointer-events: none;
+    user-select: none;
+}
+
+.regist-icon{
+    pointer-events: none;
+    user-select: none;
+}
+
+.login-regist{
+    position:absolute;
+    top:50%;
+    left:75%;
+    transform:translate(-50%,-50%);
+    width:50%;
+    display:grid;
+    grid-template-columns: 1fr;
+    z-index: 5;
+}
+
+form.login-form{
+    z-index:1;
+    opacity:0;
+}
+
+form.regist-form{
+    z-index:2;
+    
+}
+
+.image{
+    width: 100%;
+    transition: 1.1s .4s ease-in-out;
+}
+
+.image-2{
+    width: 80%;
+    transition: 1.1s .4s ease-in-out;
+}
+
+img {
+  position: relative;
+  z-index: 1;
+}
+
+
+.panels-container{
+    position: absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.panel{
+    display:flex;
+    flex-direction: column;
+    align-items:flex-end;
+    justify-content: space-around;
+    text-align:center;
+    z-index:7;
+}
+
+.panel .content{
+    color:#fff;
+    transition: .9s .6s ease-in-out;
+}
+
+.panel h3{
+    font-weight:600;
+    line-height: 1;
+    font-size:1.5rem;
+}
+
+.panel p{
+    font-size: 0.95rem;
+    padding: 0.7rem 0;
+}
+
+.btn.transparent{
+    margin: 0;
+    background:none;
+    border:2px solid #fff;
+    width:170px;
+    height:41px;
+    font-weight: 600;
+    font-size:0.8rem;
+}
+
+/* .right-panel .content, .right-panel .image{
+    transform: translateX(800px);
+} */
+
+
+.left-panel{
+    padding:3rem 17% 2rem 12%;
+    pointer-events: all;
+}
+
+.right-panel{
+    pointer-events: none;
+    padding:3rem 12% 2rem 17%;
+    transform: translateX(800px);
+}
+
+/* Animation  (app.js)*/
+.container.login-mode:before{
+    transform: translate(100%, -50%);
+    right: 52%;
+}
+
+.container.login-mode .left-panel .image,
+.container.login-mode .left-panel .content{
+    transform: translateX(-800px);
+}
+
+/* This puts the register button and picture on the right side */
+/* .container.login-mode .right-panel .content, 
+.container.login-mode .right-panel .image{
+    transform: translateX(800px);
+} */
+
+.container.login-mode .left-panel{
+    pointer-events: none;
+}
+
+.container.login-mode .right-panel{
+    pointer-events: all;
+}
+
+.container.login-mode .login-regist{
+    left:25%;
+}
+
+.container.login-mode form.login-form{
+    z-index:2;
+    opacity:1;
+}
+
+.container.login-mode form.regist-form{
+    z-index:1;
+    opacity: 0;
+}
+
+#alertMessage {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    color: #000;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 9999;
+}
+
+#alertMessage.show {
+    opacity: 1;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add some CSS styles for the alert box */
+#alert-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.alert-content {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    animation: alert-show 0.5s ease-in-out forwards;
+    max-width: 80%;
+    text-align: center;
+    position: relative;
+}
+
+.alert-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.alert-header h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 2.5em;
+    color: #FF5300;
+    font-weight: bold;
+    margin-left: 0.5em;
+    text-transform: uppercase;
+}
+
+.alert-icon {
+    font-size: 3em;
+    color: #FF5300;
+    transform: rotate(45deg);
+}
+
+.alert-content p {
+    margin-bottom: 2em;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+#alert-close {
+    background-color: #FF5300;
+    color: #fff;
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 1.2em;
+    position: absolute;
+    bottom: -1.5em;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+
+#alert-close:hover {
+    background-color: #fff;
+    color: #FF5300;
+    box-shadow: 0 0 10px rgba(255,83,0,0.5);
+}
+
+#alert-box.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .alert-content {
+        max-width: 90%;
+    }
+}
+
+@keyframes alert-show {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,207 @@
+<?php
+
+
+$input = $_POST['input']; // Get the user input from a form
+
+function string_length_check()
+{
+    $username_max_length = 15; // max length of username
+    $password_max_length = 25; // max length of password
+    
+    // Check the length of the input
+    if (strlen($_POST['username']) > $username_max_length) 
+    {
+        echo '<div id="alert-box">
+                         <div class="alert-content">
+                             <h2>Username is too long, please enter a value with $username_max_length or fewer characters.</h2>
+                             <p>Please enter a password that is at least 7 characters long.</p>
+                             <button id="alert-close">Close</button>
+                         </div>
+              </div>';
+              echo "<style>
+              /* Add some CSS styles for the alert box */
+              #alert-box {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  z-index: 9999;
+                  opacity: 0;
+                  pointer-events: none;
+              }
+              
+              .alert-content {
+                  background-color: #fff;
+                  padding: 2em;
+                  border-radius: 1em;
+                  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+                  animation: alert-show 0.5s ease-in-out forwards;
+                  max-width: 80%;
+                  text-align: center;
+                  position: relative;
+              }
+              
+              .alert-header {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-bottom: 1em;
+              }
+              
+              .alert-header h2 {
+                  margin-top: 0;
+                  margin-bottom: 0;
+                  font-size: 2.5em;
+                  color: #FF5300;
+                  font-weight: bold;
+                  margin-left: 0.5em;
+                  text-transform: uppercase;
+              }
+              
+              .alert-icon {
+                  font-size: 3em;
+                  color: #FF5300;
+                  transform: rotate(45deg);
+              }
+              
+              .alert-content p {
+                  margin-bottom: 2em;
+                  font-size: 1.2em;
+                  line-height: 1.5;
+              }
+              
+              #alert-close {
+                  background-color: #FF5300;
+                  color: #fff;
+                  border: none;
+                  border-radius: 0.5em;
+                  padding: 0.5em 1em;
+                  margin-top: 1em;
+                  cursor: pointer;
+                  transition: all 0.2s ease-in-out;
+                  font-size: 1.2em;
+                  position: absolute;
+                  bottom: -1.5em;
+                  right: 0;
+                  left: 0;
+                  margin: auto;
+              }
+              
+              #alert-close:hover {
+                  background-color: #fff;
+                  color: #FF5300;
+                  box-shadow: 0 0 10px rgba(255,83,0,0.5);
+              }
+              
+              #alert-box.show {
+                  opacity: 1;
+                  pointer-events: auto;
+              }
+              
+              @media only screen and (max-width: 600px) {
+                  .alert-content {
+                      max-width: 90%;
+                  }
+              }
+              
+              @keyframes alert-show {
+                  from {
+                      transform: translateY(-100px);
+                      opacity: 0;
+                  }
+                  to {
+                      transform: translateY(0);
+                      opacity: 1;
+                  }
+              }
+        </style>";
+        return false;
+    } 
+    else if (strlen($_POST['encrypted_password']))
+    {
+        echo "Password is too long, please enter a value with $password_max_length or fewer characters.";
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+function alphanumeric_check($string) 
+{
+    return ctype_alnum($string);
+}
+
+function decrypt_password()
+{
+    // Convert the encrypted password and IV from base64 to binary
+    $encryptedPassword = base64_decode($_POST['encrypted_password']);
+    $iv = base64_decode($_POST['iv']);
+
+    // Generate the encryption key from a secret string using SHA-256
+    $secretKey = 'my secret key';
+    $key = hash('sha256', $secretKey, true);
+
+    // Decrypt the password using AES-GCM
+    $decryptedPassword = openssl_decrypt($encryptedPassword, 'aes-256-gcm', $key, OPENSSL_RAW_DATA, $iv, $_POST['tag']);
+
+    return $decryptedPassword;
+}
+
+function validate_user_input()
+{
+    $username_max_length = 15; // max length of username
+    $password_max_length = 25; // max length of password
+    $username = $_POST['username'];
+    $encrypted_password = $_POST['encrypted_password'];
+    $valid = false;
+
+    if (alphanumeric_check($username)) 
+    {
+        // Username is only alphanumeric characters
+        if (alphanumeric_check(decrypt_password()))
+        {
+            // Password is only alphanumeric characters
+            if (string_length_check())
+            {
+                // Username is a good character length
+                if (string_length_check())
+                {
+                    //Password is of a good character size
+                    $valid = true;
+                }
+            }
+        }
+    }
+    
+    return $valid;
+    
+}
+
+function validate_login()
+{
+    require('DatabaseConnection.php');
+
+    $username = $_POST['username'];
+    $encrypted_password = $_POST['encrypted_password'];
+    $valid = false;
+
+    if(validate_user_input())
+    {
+        if (user_Exists($username))
+        {
+            if (user_verification($username, decrypt_password()))
+            {
+                $valid = true;
+            }
+        }
+    }
+    return $valid;
+
+}
+?>

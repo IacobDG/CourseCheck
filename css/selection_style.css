@@ -1,0 +1,391 @@
+@font-face {
+    src: url(fonts/Montserrat-VariableFont_wght.ttf);
+    font-family: Montserrat;
+}
+
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0; 
+}
+
+body{
+  background-color: #fff;
+}
+.wrapper {
+  width: 100%;
+  height: 10vh;
+  padding: 20px 0%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FF5300;
+}
+
+.logo {
+  max-width: 100px;
+  background-color: #fff;
+}
+
+h1 {
+  color: #fff;
+  font-size: 40px;
+  line-height: 1;
+  background-position: 0 0;
+}
+
+
+
+.btn-major-change {
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 4px;
+  background-color: #fff;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-major-change:hover {
+  background-color: #f2f2f2;
+}
+
+.btn-logout {
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 4px;
+  background-color: #25367F;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  background-color: #0b228a;
+}
+
+
+.logo-box{
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0 15px;
+    border-bottom: 1px solid;
+}
+
+.change-major{
+    margin-left: 1100px;
+}
+
+
+
+.course-tables {
+  border-collapse: collapse;
+  font-size: 0.66em;
+  width: 1300px;
+  margin: 0 auto; /* added rule */
+}
+
+
+.course-tables thead tr
+{
+    background-color: black;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.course-tables th,
+.course-tables td
+{
+    padding: 7px 7px;
+    font-weight: bold;
+    margin:100px, 30px;
+    text-align: center;
+}
+
+.course-tables td
+{
+    background-color: #CEEBE9;
+}
+
+
+.course-tables tbody tr
+{
+    border-bottom: 1px solid #dddddd;
+}
+
+.course-tables tbody tr:last-of-type
+{
+    border-bottom: 2px solid #25367F;
+}
+
+caption {
+    font-weight: bold;
+    background-color:#25367F;
+    color:#ffffff;
+    margin-top: 15px;
+    padding: 15px 7px;
+    font-size:1.2em;
+}
+
+
+.pop-up-box a{
+    display: inline-block;
+    text-decoration: none;
+    background: #CEEBE9;
+    padding:15px;
+    border-radius: 3px;
+    color: #585858;
+}
+
+.pop-up{
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(77,77,77,0.7);
+    transition: all 0.4s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.pop-up:target{
+    visibility: visible;
+    opacity: 1;
+}
+
+.messageContent{
+    position: relative;
+    background-color: #fff;
+    width: 700px;
+    height: 250px;
+    max-width: 100%;
+    padding: 6em 3em;
+    border-radius: 4px;
+}
+
+a{
+    font-size: 13px;
+    font-weight: 600;
+}
+
+h2{
+    font-size: 20px;
+    font-weight: 600;
+    color:#b3440d
+}
+
+p{
+    font-size: 18px;
+    font-weight: 300;
+    color:rgb(236, 153, 44);
+}
+
+.messageClose{
+    position: absolute;
+    top: 0;
+    right: 15px;
+    color: #585858;
+    text-decoration: none;
+    font-size: 36px;
+}
+
+a:hover{
+    color:hotpink;
+}
+
+  table {
+    margin: 20px 0;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #25367F;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  caption {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    background-color: #25367F;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Style the instructions container */
+.instructions {
+    border: 1px solid #ccc;
+    margin-top: 20px; 
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    font-family: "Open Sans", sans-serif;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fade-in 1s ease forwards;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Style the heading */
+  .instructions h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Style the list */
+  .instructions ol {
+    font-size: 16px;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .instructions {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 0; 
+  }
+  
+  .instructions h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+  }
+  
+  .instructions p {
+    margin: 10px 0;
+  }
+  
+  .instructions ol {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+  
+  .instructions ol li {
+    margin-bottom: 5px;
+  }
+  
+  .instructions ol {
+    margin: 0;
+  }
+
+  .instructions label {
+    display: block;
+    margin: 5px 0;
+    font-weight: bold;
+  }
+  
+  /* animation for the table*/
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px 0;
+    animation: table-fade-in 1s ease-in-out;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  table th, td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  
+  table td:hover {
+    background-color: #ddd;
+  }
+  
+  .processing-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+  }
+  
+  button {
+      background-color: #FF5300;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 5px;
+      }
+
+  button:hover {
+      background-color: #0b228a; 
+  }
+
+  button[name="SaveAndContinue"] {
+      background-color: #FF5300; 
+  }
+
+  button[name="SaveAndContinue"]:hover {
+      background-color: #0b228a; 
+      }
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
