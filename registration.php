@@ -11,8 +11,7 @@
     }
 
     // Include the Encryption JavaScript file
-    //echo '<script src="encryption.js"></script>';
-
+    // echo '<script src="encryption.js"></script>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +71,6 @@
                     <?php
                         // include_once('DatabaseConnection.php');
                         $majors = getAllMajors();
-                        print_r($majors);
                         foreach($majors as $Major)
                         {
                             echo "<option>$Major</option>";

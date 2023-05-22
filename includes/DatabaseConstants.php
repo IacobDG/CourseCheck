@@ -4,11 +4,9 @@
 // Holds the Database Constants in one file
 
 // Database Constants
-define('SERVER_NAME', 'cssqlserver');
-define('CONNECTION_INFO', array(
-	"Database"=>'CS414_s23_team2',
-	"UID"=>'cs414_s23_team2_web',
-	"PWD"=>'team2_web'
-));
-
+define('SERVER_NAME', 'localhost');
+define('DATABASE', 'trents_db');
+define('UID', 'root');
+define('PWD', '#1SuperCoolWebsite');
+define('PORT', 3307);
 ?>
