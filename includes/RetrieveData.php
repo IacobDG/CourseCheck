@@ -414,8 +414,7 @@ function getUserUncompletedCourses($userID, $userMajor) {
 // Joey Foucha Jr | Trenton
 // 3/22/23
 // Gets the information regarding a students course load from STUDENT ENROLLMENT
-function getEnrolledCourses(User $user)
-{
+function getEnrolledCourses(User $user) {
 	// Connect to the database
 	$con = connection();
 
@@ -443,8 +442,7 @@ function getEnrolledCourses(User $user)
 
 	// Create courses array and populate it with data
 	$enrolledCourses = array();
-	while($queryRow = $courses->get_result()->fetch_assoc())
-	{
+	while($queryRow = $courses->get_result()->fetch_assoc()) {
 		array_push($enrolledCourses, new CourseSelection($queryRow['CRS_ID'], 
 														 $queryRow['CRS_NAME'], 
 														 $queryRow['CRS_CREDITS_COUNT'], 
@@ -582,14 +580,12 @@ function getElectives(){
 }
 
 // Trenton
-// 4/14/23
+// 5/22/23
 // Returns the elective courses for a selected elective
+// todo: fix db stuff
 function getElectiveCourses($electiveName){
 	// Connect to the database
-	$conn = mysqli_connect( SERVER_NAME, DATABASE, UID, PWD);
-	if(!$conn) {
-		die( print_r(mysqli_error($conn), true));
-	}
+	$con = connection();
 
 	// Execute the SQL statement
 	$sql = "SELECT CRS_ID, CRS_NAME
@@ -597,103 +593,110 @@ function getElectiveCourses($electiveName){
 			JOIN   COURSE ON (OPTION_CRS = CRS_ID)
 			WHERE  OPTION_NAME = ?
 			ORDER BY CRS_ID;";
-	$courses = mysqli_query( $conn, $sql, array(&$electiveName));
-	if($courses === false){
-		die( print_r(mysqli_error($conn), true));
+	$courses = $con->prepare($sql);
+	if(!$courses){
+		die('Prepare Error: '. $con->error);
 	}
+
+	// Bind and execute the query
+	$courses->bind_param("s", $electiveName);
+	$courses->execute();
 
 	// Create courses array and populate it with data
 	$electives = array();
-	while($queryRow = mysqli_fetch_array($courses, MYSQLI_ASSOC)){
+	while($queryRow = $courses->get_result()->fetch_assoc()){
 		array_push($electives, new CourseIDandNumber($queryRow['CRS_ID'], $queryRow['CRS_NAME']));
 	}
 
-	mysqli_close($conn);
+	$con->close();
 	return $electives;
 }
 
 // Trenton
-// 4/16/23
+// 5/22/23
 // Returns the elective course numbers for a selected elective
+// todo: fix db stuff
 function getElectiveCourseNumbers($electiveName){
 	// Connect to the database
-	$conn = mysqli_connect( SERVER_NAME, DATABASE, UID, PWD);
-	if(!$conn) {
-		die( print_r(mysqli_error($conn), true));
-	}
+	$con = connection();
 
 	// Execute the SQL statement
 	$sql = "SELECT CRS_ID
 			FROM   ELECTIVE_OPTION
 			JOIN   COURSE ON (OPTION_CRS = CRS_ID)
 			WHERE  OPTION_NAME = ?;";
-	$courses = mysqli_query( $conn, $sql, array(&$electiveName));
-	if($courses === false){
-		die( print_r(mysqli_error($conn), true));
+	$courses = $con->prepare($sql);
+	if(!$courses){
+		die('Prepare Error: '. $con->error);
 	}
+
+	// Bind and execute the query
+	$courses->bind_param("s", $electiveName);
+	$courses->execute();
 
 	// Create courses array and populate it with data
 	$electives = array();
-	while($queryRow = mysqli_fetch_array($courses, SQLSRV_FETCH_NUMERIC)){
+	while($queryRow = $courses->get_result()->fetch_array()){
 		array_push($electives, $queryRow[0]);
 	}
 
-	mysqli_close($conn);
+	$con->close();
 	return $electives;
 }
 
 
-// James Jing
-// 4/22/23
+// James Jing |Trenton
+// 5/22/23
 // Get te bool value of the administer
+// todo: fix db stuff
 function getAdmin($userName) {
     // Connect to the database
-    $con = mysqli_connect(SERVER_NAME, CONNECTION_INFO);
-    if ($con === false) {
-        die(print_r(mysqli_error($conn), true));
-    }
+    $con = connection();
 
     // Execute the SQL statement
     $sql = "SELECT USER_IsAdminister
             FROM [USER]
             WHERE USER_ID = ?;";
-    $admin = mysqli_query($con, $sql, array(&$userName));
-    if ($admin === false) {
-        die(print_r(mysqli_error($conn), true));
-    }
+    $admin = $con->prepare($sql);
+	if(!$admin){
+		die('Prepare Error: '. $con->error);
+	}
 
-    // Fetch the result and return the admin status
-    $result = mysqli_fetch_array($admin);
-    $adminStatus = $result['USER_IsAdminister'];
+    // Binds, executes, and fetches the admin status of the user
+	$admin->bind_param("s", $userName);
+	$admin->execute();
+    $adminStatus = $admin->get_result()->fetch_array()[0];
 
     // Close the database connection and return the admin status
-    mysqli_close($con);
+    $con->close();
     return $adminStatus;
 }
 
-// Jacob George
-// 4/25/23
+// Jacob George |Trenton
+// 5/22/23
 // Get the user's uncompleted classes
+// todo: fix db stuff
+// todo: needs more work
 function getUserUncompletedCoursesv2($userID, $desiredMajor) 
 {
 	// Connect to the database
-	$con = mysqli_connect(SERVER_NAME, CONNECTION_INFO);
-	if ($con === false) {
-		die(print_r(mysqli_error($conn), true));
-	}
+	$con = connection();
 
 	// Execute the SQL statement
 	$sql = "{call getUncompletedCourses2(?, ?)}";
-	//{call YourStoredProcedureName(?, ?)}
-	$stmt = mysqli_query($con, $sql, array(&$userID, $desiredMajor));
-	if ($stmt === false) {
-		die(print_r(mysqli_error($conn), true));
+	$courses = $con->prepare($sql);
+	if(!$courses){
+		die('Prepare Error: '. $con->error);
 	}
+
+	// Binds and executes the query
+	$courses->bind_param("si", $userID, $desiredMajor);
+	$courses->execute();
 
 	// Create courses array and populate it with data
 	do {
 		$coursesData = array();
-		while($queryRow = mysqli_fetch_array($stmt, MYSQLI_ASSOC)){
+		while($queryRow = $courses->get_result()->fetch_assoc()){
 			array_push($coursesData, new CourseSelection($queryRow['CRS_ID'], 
 														$queryRow['CRS_NAME'], 
 														$queryRow['CRS_CREDITS_COUNT'], 
@@ -703,7 +706,7 @@ function getUserUncompletedCoursesv2($userID, $desiredMajor)
 														$queryRow['SE_GRADE'],
 														$queryRow['POS_EXPECTED_SEMESTER']));
 		}
-	} while (sqlsrv_next_result($stmt));
+	} while (sqlsrv_next_result($courses));
 
 	// $print_r();
 	mysqli_close($con);
@@ -715,10 +718,7 @@ function getUserUncompletedCoursesv2($userID, $desiredMajor)
 // Get the data of the degree change request
 function getDegreeChangeRequests() {
     // Connect to the database
-    $con = mysqli_connect(SERVER_NAME, CONNECTION_INFO);
-    if ($con === false) {
-        die(print_r(mysqli_error($conn), true));
-    }
+    $con = connection();
 
     // Execute the SQL statement
     $sql = "SELECT dcr.USER_ID,
@@ -731,31 +731,25 @@ function getDegreeChangeRequests() {
             JOIN  [USER] AS u ON (u.USER_ID = dcr.USER_ID)
             JOIN  DEGREE AS d ON (d.DEG_ID  = dcr.DEG_ID)
 			WHERE DCR_RESOLVED = 'N';";
-    $request = mysqli_query($con, $sql);
-    if ($request === false) {
-        die(print_r(mysqli_error($conn), true));
-    }
+	$request = $con->query($sql);
+	if(!$request){
+		die('Query Error: '. $con->error);
+	}
 
     // Fetch the results and return them as an array
-    $results = array();
-    while ($row = mysqli_fetch_array($request, MYSQLI_ASSOC)) {
-        $results[] = $row;
-    }
+    $results = $request->fetch_array();
 
     // Close the database connection and return the results
-    mysqli_close($con);
+    $con->close();
     return $results;
 }
 
 // Trenton
-// 4/24/23
+// 5/22/23
 // Gets all of the electives of a particular major
 function getMajorElectives($degree){
 	// Connect to the database
-    $conn = mysqli_connect(SERVER_NAME, CONNECTION_INFO);
-    if ($conn === false) {
-        die(print_r(mysqli_error($conn), true));
-    }
+    $con = connection();
 
 	$degreeID = degreeID($degree);
 
@@ -766,34 +760,35 @@ function getMajorElectives($degree){
 				SELECT ELECT_NAME FROM ELECTIVES
 			)
 			AND p.DEG_ID = ?;";
-	$queryElectives = mysqli_query( $conn, $sql, array(&$degreeID));
-	if($queryElectives === false){
-		die( print_r(mysqli_error($conn), true));
+	$elective = $con->prepare($sql);
+	if(!$elective){
+		die('Prepare Error: '. $con->error);
 	}
+
+	// Binds and executes the query
+	$elective->bind_param("i", $degreeID);
+	$elective->execute();
 
 	// Create courses array and populate it with data
 	$electives = array();
-	while($queryRow = mysqli_fetch_array($queryElectives, SQLSRV_FETCH_NUMERIC)){
+	while($queryRow = $elective->get_result()->fetch_array()){
 		array_push($electives, $queryRow[0]);
 	}
 
-	mysqli_close($conn);
+	$con->close();
 	return $electives;
 }
 
 // Trenton
-// 4/24/23
+// 5/22/23
 // Checks if a given elective number is null for the elective and user
 function checkElectiveNull($course, $user){
 	$checkNull = false;
 
 	// Connect to the database
-    $conn = mysqli_connect(SERVER_NAME, CONNECTION_INFO);
-    if ($conn === false) {
-        die(print_r(mysqli_error($conn), true));
-    }
+    $con = connection();
 
-	$num = $course->getNumber();
+	$num  = $course->getNumber();
 	$name = $user->getUsername();
 
 	// Execute the SQL statement
@@ -801,20 +796,19 @@ function checkElectiveNull($course, $user){
 			FROM   USER_ELECTIVES
 			WHERE  UE_ELECT = ?
 			AND    UE_USER  = ?;";
-
-	$queryElectives = mysqli_query( $conn, $sql, array(&$num, $name));
-	if($queryElectives === false){
-		die( print_r(mysqli_error($conn), true));
+	$elective = $con->prepare($sql);
+	if(!$elective){
+		die('Prepare Error: '. $con->error);
 	}
 
 	// Create courses array and populate it with data
-	while($queryRow = mysqli_fetch_array($queryElectives, SQLSRV_FETCH_NUMERIC)){
+	while($queryRow = $elective->get_result()->fetch_array()){
 		if(is_null($queryRow[0])){
 			$checkNull = true;
 		}
 	}
 
-	mysqli_close($conn);
+	$con->close();
 	return $checkNull;
 }
 
@@ -824,10 +818,7 @@ function checkElectiveNull($course, $user){
 function courseDataWSemester($UserMajor) {
 	include_once('./model/Course.php');
 	// Connect to the database
-	$conn = mysqli_connect( SERVER_NAME, DATABASE, UID, PWD);
-	if(!$conn) {
-		die( print_r(mysqli_error($conn), true));
-	}
+	$con = connection();
 
 	// Get the degree ID from the db
 	$degreeId = degreeID($UserMajor);
@@ -838,14 +829,18 @@ function courseDataWSemester($UserMajor) {
 			JOIN      [PLAN OF STUDY] AS P ON C.CRS_ID = P.CRS_ID
 			WHERE     P.DEG_ID = ?
 			ORDER BY  POS_EXPECTED_SEMESTER";
-	$courses = mysqli_query( $conn, $sql, array(&$degreeId));
-	if($courses === false){
-		die( print_r(mysqli_error($conn), true));
+	$courses = $con->prepare($sql);
+	if(!$courses){
+		die('Prepare Error: '. $con->error);
 	}
+
+	// Binds and executes the query
+	$courses->bind_param("i", $degreeId);
+	$courses->execute();
 
 	// Create courses array and populate it with data
 	$coursesData = array();
-	while($queryRow = mysqli_fetch_array($courses, MYSQLI_ASSOC)){
+	while($queryRow = $courses->get_result()->fetch_array()){
 		array_push($coursesData, new CourseSelection($queryRow['CRS_ID'], 
 													 $queryRow['CRS_NAME'], 
 													 $queryRow['CRS_CREDITS_COUNT'], 
@@ -862,10 +857,7 @@ function courseDataWSemester($UserMajor) {
 
 function getUserSubmission(){
 	// Connect to the database
-	$conn = mysqli_connect( SERVER_NAME, DATABASE, UID, PWD);
-	if(!$conn) {
-		die( print_r(mysqli_error($conn), true));
-	}
+	$con = connection();
 
 	// Execute SQL Statement
 	$sql = "SELECT ";
