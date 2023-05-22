@@ -524,7 +524,7 @@ function getCourseDescription($courseNumber)
 }
 
 // Trenton
-// 2/24/23
+// 5/22/23
 // Pull course data into an array
 function searchCourses($crsValue) {
 	// Connect to the database
